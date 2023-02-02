@@ -4,19 +4,21 @@ import { useNavigation } from '@react-navigation/native';
 
 import { AuthContext } from '../../contexts/auth.context';
 
-export default function SignIn() {
+export default function SignUp() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [name, setName] = useState('')
 
-  const { signIn } = useContext(AuthContext)
+  const { signUp } = useContext(AuthContext)
 
   const navigation = useNavigation()
 
-  const handleLogin = () => {
-    console.log('apertei pra logar o usuario');
-    signIn(email, password)
+  const handleSignup = () => {
+    console.log('apertei botao de cadastrar');
+    signUp(email, password, name)
   }
 
+ 
  return (
    <View style={styles.background}>
      <KeyboardAvoidingView 
@@ -25,6 +27,16 @@ export default function SignIn() {
       enabled
      >
         <Image style={styles.image} source={require('../../assets/Logo.png')}/>
+        <View style={styles.input}>
+          <TextInput
+            placeholder='Nome'
+            autoCorrect={false}
+            style={styles.textInput}
+            placeholderTextColor='rgba(255,255,255,0.30)'
+            onChangeText={(text) => setName(text)}
+            value={name}
+          />
+        </View>
         <View style={styles.input}>
           <TextInput
             placeholder='Email'
@@ -47,11 +59,11 @@ export default function SignIn() {
             value={password}
           />
         </View>
-        <TouchableOpacity style={styles.button} onPress={handleLogin}>
-          <Text style={styles.textButton}>Acessar</Text>
+        <TouchableOpacity style={styles.button} onPress={handleSignup}>
+          <Text style={styles.textButton}>Cadastrar</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonSignup} onPress={() => navigation.navigate('SignUp')}>
-          <Text style={styles.textButtonSignup}>Não tem uma conta? Cadastre-se</Text>
+        <TouchableOpacity style={styles.buttonSignup} onPress={() => navigation.navigate('SignIn')}>
+          <Text style={styles.textButtonSignup}>Já tem uma conta? Login</Text>
         </TouchableOpacity>
      </KeyboardAvoidingView>
    </View>
